@@ -1,0 +1,13 @@
+google-generativeai
+python-dotenv
+duckduckgo-search
+opencv-python
+face-recognition
+numpy
+python-whois
+exifread
+pandas
+openpyxl
+pypdf
+gTTS
+pygame
