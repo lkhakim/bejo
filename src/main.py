@@ -123,7 +123,7 @@ def main():
         return recognize_microphone(stt_cfg)
 
     def open_training():
-        TrainingWindow(chat_win.root, knowledge_base=kb, gemini_engine=gemini_engine)
+        TrainingWindow(chat_win.root, knowledge_base=kb, gemini_engine=gemini_engine, skill_manager=sm)
 
     def open_settings():
         def on_settings_closed():

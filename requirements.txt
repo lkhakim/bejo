@@ -11,6 +11,7 @@ pandas>=3.0.0
 openpyxl>=3.1.0
 python-whois>=0.9.0
 exifread>=3.5.0
+PyYAML>=6.0
 
 # STT
 SpeechRecognition>=3.17.0
