@@ -1,8 +1,41 @@
+import os
 import re
 import math
+import json
 import logging
+from datetime import datetime
 
 logger = logging.getLogger("bejo.inference")
+
+ACTIVITY_LOG = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "activity_log.json")
+
+SKILL_PARAMS = {
+    "web-search": {"tool": "web_search", "vars": {"query": "Apa yang mau dicari, Bos?"}},
+    "book-search": {"tool": "web_search", "vars": {"query": "Judul atau topik buku apa yang dicari, Bos?"}},
+    "tax-audit": {"tool": "analyze_financial_statement", "vars": {"file_path": "File laporan keuangannya mana, Bos? (PDF/Excel/CSV)"}},
+    "osint-forensic": {"tool": "get_whois_info", "vars": {"domain": "Domain apa yang mau dicek, Bos?"}},
+    "math-calc": {"tool": "calculate", "vars": {"expression": "Ekspresi matematikanya apa, Bos? Misal: 2+2 atau sqrt(16)"}},
+    "memory": {"tool": "save_user_fact", "vars": {"fact_key": "Apa topik faktanya, Bos?", "fact_value": "Apa isi faktanya, Bos?"}},
+    "tax_profiling": {"tool": "save_taxpayer_data", "vars": {"npwp": "NPWP-nya berapa, Bos?", "data_type": "Jenis datanya apa? (SPT/Faktur/Bupot/Setoran)", "amount": "Nominal rupiahnya berapa?"}},
+    "face_tools": {"tool": "register_face", "vars": {"name": "Nama orangnya siapa, Bos?"}},
+    "tools_media": {"tool": None, "vars": {}},
+    "voice_tools": {"tool": None, "vars": {}},
+    "insight": {"tool": None, "vars": {}},
+}
+
+
+def _log_activity(entry: dict):
+    try:
+        log = []
+        if os.path.exists(ACTIVITY_LOG):
+            with open(ACTIVITY_LOG, "r", encoding="utf-8") as f:
+                log = json.load(f)
+        entry["timestamp"] = datetime.now().isoformat()
+        log.append(entry)
+        with open(ACTIVITY_LOG, "w", encoding="utf-8") as f:
+            json.dump(log, f, indent=2, ensure_ascii=False)
+    except Exception as e:
+        logger.warning(f"Failed to log activity: {e}")
 
 _MATH_PATTERN = re.compile(
     r"^\s*(hitung|hitungin|kalkulasi|berapa|hasil\s+dari|calculate|calc|math)?\s*"
@@ -40,10 +73,43 @@ class InferenceEngine:
         self.gemini = gemini_engine
 
     def answer(self, user_input: str, threshold: float = 0.6) -> str:
-        result = self.kb.answer(user_input, threshold=threshold)
-        if result:
-            logger.info(f"Inference: answered from KB (threshold={threshold})")
-            return result
+        kb_results = self.kb.search(user_input, k=1, threshold=threshold)
+        kb_hit = kb_results[0] if kb_results else None
+
+        if kb_hit:
+            tags = kb_hit.get("tags", [])
+            skill_tag = next((t for t in tags if t not in ("just answer",)), None)
+            if not skill_tag:
+                logger.info(f"Inference: answered from KB (just answer)")
+                return kb_hit["answer"]
+
+            logger.info(f"Inference: KB hit with skill '{skill_tag}'")
+            _log_activity({
+                "type": "kb_hit",
+                "skill": skill_tag,
+                "user_input": user_input,
+                "kb_answer": kb_hit["answer"],
+            })
+
+            param_spec = SKILL_PARAMS.get(skill_tag, {"tool": None, "vars": {}})
+            if param_spec["vars"] and self.gemini:
+                context_input = (
+                    f"{user_input}\n\n---\n"
+                    f"KB reference: {kb_hit['answer']}\n"
+                    f"Gunakan tool yang sesuai jika Bos minta sesuatu yang butuh eksekusi."
+                )
+                try:
+                    response = self.gemini.send(context_input)
+                    _log_activity({
+                        "type": "gemini_response",
+                        "skill": skill_tag,
+                        "user_input": user_input,
+                        "response": response,
+                    })
+                    return response
+                except Exception as e:
+                    logger.error(f"Inference: Gemini fallback failed: {e}")
+            return kb_hit["answer"]
 
         math_result = _try_compute(user_input)
         if math_result:
@@ -57,9 +123,15 @@ class InferenceEngine:
                 return vm_results[0]["text"]
 
         if self.gemini:
-            logger.info("Inference: KB, local math & VM miss, using Gemini fallback")
+            logger.info("Inference: all local misses, using Gemini fallback")
             try:
-                return self.gemini.send(user_input)
+                response = self.gemini.send(user_input)
+                _log_activity({
+                    "type": "gemini_only",
+                    "user_input": user_input,
+                    "response": response,
+                })
+                return response
             except Exception as e:
                 logger.error(f"Inference: Gemini fallback failed: {e}")
                 return "Maaf Bos, Bejo belum belajar tentang itu. Coba latih Bejo dulu lewat menu Training."

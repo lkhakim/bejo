@@ -13,6 +13,7 @@ temp_voice.mp3
 user_memory.json
 faces_db.pkl
 taxpayer_profiles.json
+activity_log.json
 
 # Sensitive config (contains API keys)
 settings.json

@@ -29,5 +29,5 @@
 - Full Indonesian: system prompt, UI labels, tool names, comments, voice
 - turbovec is a vendored sub-project at `turbovec/` (Rust + Python bindings)
 - Embedding fallback: deterministic hash-based random vector when Gemini API fails
-- `memory_store/`, `bejo.log`, `faces_db.pkl`, `temp_voice.mp3`, `user_memory.json`, `taxpayer_profiles.json` are gitignored runtime data
+- `memory_store/`, `activity_log.json`, `bejo.log`, `faces_db.pkl`, `temp_voice.mp3`, `user_memory.json`, `taxpayer_profiles.json` are gitignored runtime data
 - **Skill system:** `skills/*.md` (YAML frontmatter + markdown, agentskills.io format) auto-discovered by `SkillManager`. Skills appear in Training window dropdown alongside hardcoded tool modules. New skills can be added by creating `.md` files in `skills/`.
