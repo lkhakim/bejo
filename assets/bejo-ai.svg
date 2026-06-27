@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100%" height="100%">
+  <!-- Background Shadow -->
+  <ellipse cx="400" cy="740" rx="250" ry="30" fill="#e0e0e0" opacity="0.7"/>
+
+  <!-- Arms -->
+  <!-- Left Arm -->
+  <path d="M 220 440 C 160 480, 140 600, 200 660 C 230 630, 240 550, 240 480 Z" fill="#3fa0c2"/>
+  <circle cx="175" cy="640" r="10" fill="#7a7374"/>
+  <circle cx="195" cy="650" r="10" fill="#7a7374"/>
+  
+  <!-- Right Arm -->
+  <path d="M 580 440 C 640 480, 660 600, 600 660 C 570 630, 560 550, 560 480 Z" fill="#3fa0c2"/>
+  <circle cx="625" cy="640" r="10" fill="#7a7374"/>
+  <circle cx="605" cy="650" r="10" fill="#7a7374"/>
+
+  <!-- Feet -->
+  <!-- Left Foot -->
+  <path d="M 260 700 C 240 700, 230 740, 280 750 C 330 750, 340 710, 320 700 Z" fill="#358cae"/>
+  <circle cx="255" cy="740" r="12" fill="#7a7374"/>
+  <circle cx="280" cy="745" r="14" fill="#7a7374"/>
+  <circle cx="305" cy="745" r="14" fill="#7a7374"/>
+
+  <!-- Right Foot -->
+  <path d="M 540 700 C 560 700, 570 740, 520 750 C 470 750, 460 710, 480 700 Z" fill="#358cae"/>
+  <circle cx="545" cy="740" r="12" fill="#7a7374"/>
+  <circle cx="520" cy="745" r="14" fill="#7a7374"/>
+  <circle cx="495" cy="745" r="14" fill="#7a7374"/>
+
+  <!-- Main Body -->
+  <path d="M 220 350 C 140 450, 160 650, 300 710 C 400 740, 500 710, 600 650 C 660 550, 640 400, 580 350 C 540 280, 260 280, 220 350 Z" fill="#4ec5ed"/>
+
+  <!-- Ears -->
+  <!-- Left Ear -->
+  <path d="M 230 350 C 140 340, 160 440, 210 420 Z" fill="#4ec5ed"/>
+  <path d="M 215 365 C 160 360, 180 420, 205 405 Z" fill="#fca1a2"/>
+  <!-- Right Ear -->
+  <path d="M 570 350 C 660 340, 640 440, 590 420 Z" fill="#4ec5ed"/>
+  <path d="M 585 365 C 640 360, 620 420, 595 405 Z" fill="#fca1a2"/>
+
+  <!-- Blush Cheeks -->
+  <ellipse cx="270" cy="530" rx="35" ry="25" fill="#ff8a8a" opacity="0.5"/>
+  <ellipse cx="530" cy="530" rx="35" ry="25" fill="#ff8a8a" opacity="0.5"/>
+
+  <!-- Eyes -->
+  <!-- Left Eye -->
+  <circle cx="340" cy="440" r="65" fill="#ffffff"/>
+  <circle cx="345" cy="445" r="45" fill="#663b2a"/>
+  <circle cx="345" cy="445" r="32" fill="#1f110b"/>
+  <circle cx="325" cy="425" r="12" fill="#ffffff"/>
+  <!-- Right Eye -->
+  <circle cx="460" cy="440" r="65" fill="#ffffff"/>
+  <circle cx="455" cy="445" r="45" fill="#663b2a"/>
+  <circle cx="455" cy="445" r="32" fill="#1f110b"/>
+  <circle cx="435" cy="425" r="12" fill="#ffffff"/>
+
+  <!-- Nose -->
+  <path d="M 380 475 C 380 460, 420 460, 420 475 C 420 495, 380 495, 380 475 Z" fill="#354857"/>
+  <ellipse cx="400" cy="475" rx="12" ry="6" fill="#566e80"/>
+
+  <!-- Smile Mouth -->
+  <path d="M 310 550 Q 400 610, 490 550" stroke="#234252" stroke-width="6" fill="none" stroke-linecap="round"/>
+
+  <!-- Blangkon Hat Base -->
+  <path d="M 224 330 C 230 190, 570 190, 576 330 C 500 355, 300 355, 224 330 Z" fill="#8c5832"/>
+  
+  <!-- Batik Geometric Pattern Overlays -->
+  <path d="M 250 250 L 350 330 M 300 220 L 420 320 M 350 200 L 480 310 M 420 200 L 530 290" stroke="#4a2f1b" stroke-width="5" opacity="0.4" stroke-linecap="round"/>
+  <path d="M 550 250 L 450 330 M 500 220 L 380 320 M 450 200 L 320 310 M 380 200 L 270 290" stroke="#ffd080" stroke-width="3" opacity="0.5" stroke-linecap="round"/>
+  
+  <!-- Blangkon Border -->
+  <path d="M 224 330 C 300 355, 500 355, 576 330 L 572 315 C 500 340, 300 340, 228 315 Z" fill="#5e3a1f"/>
+  <path d="M 226 322 Q 400 348, 574 322" stroke="#ffd080" stroke-width="2" fill="none"/>
+</svg>

@@ -5,3 +5,18 @@ __pycache__/
 venv/
 .venv/
 .pytest_cache/
+
+# Bejo runtime data
+memory_store/
+*.log
+temp_voice.mp3
+user_memory.json
+faces_db.pkl
+taxpayer_profiles.json
+
+# Sensitive config (contains API keys)
+settings.json
+
+# Debug artifacts
+debug.flac
+debug_audio.wav

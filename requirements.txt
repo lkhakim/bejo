@@ -1,13 +1,21 @@
-google-generativeai
-python-dotenv
-duckduckgo-search
-opencv-python
-face-recognition
-numpy
-python-whois
-exifread
-pandas
-openpyxl
-pypdf
-gTTS
-pygame
+google-generativeai>=0.8.0
+openai>=1.0.0
+python-dotenv>=1.0.0
+duckduckgo-search>=8.0.0
+numpy>=1.26.0
+turbovec>=0.8.0
+gTTS>=2.5.0
+pygame>=2.6.0
+pypdf>=6.0.0
+pandas>=3.0.0
+openpyxl>=3.1.0
+python-whois>=0.9.0
+exifread>=3.5.0
+
+# STT
+SpeechRecognition>=3.17.0
+PyAudio>=0.2.14
+
+# Optional: face recognition
+# opencv-python>=4.13.0
+# face-recognition>=1.3.0
